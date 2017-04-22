@@ -1,0 +1,4 @@
+ssh -L 127.0.0.1:32400:127.0.0.1:32400 root@46.101.163.98
+sudo iptables -A INPUT -p tcp -d 0/0 -s 0/0 --dport 32400 -j ACCEPT
+http://127.0.0.1:32400/web
+

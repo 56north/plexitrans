@@ -1,0 +1,35 @@
+version: "2"
+services:
+    transmission:
+        image: linuxserver/transmission
+        container_name: transmission
+        environment:
+            - VERSION=latest
+            - PGID=1000
+            - PUID=1000
+            - TZ=Europe/London
+        volumes:
+            - /home/docker/transmission/config:/config
+            - /home/docker/plex/downloads:/downloads
+            - /home/docker/transmission/watch:/watch
+        ports:
+            - 9091:9091
+            - 51413:51413
+            - 51413:51413/udp
+        restart: always
+
+    plex:
+        image: linuxserver/plex
+        container_name: plex
+        network_mode: "host"
+        volumes:
+            - /home/docker/plex/config:/config
+            - /home/docker/plex/tvshows:/data/tvshows
+            - /home/docker/plex/movies:/data/movies
+            - /home/docker/plex/transcode:/transcode
+            - /home/docker/plex/downloads:/data/downloads
+        restart: always
+        environment:
+            - VERSION=latest
+            - PGID=1000
+            - PUID=1000
